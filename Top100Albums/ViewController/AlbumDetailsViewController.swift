@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class AlbumDetailsViewController: ViewController {
+class AlbumDetailsViewController: UIViewController {
     private var albumViewModel: AlbumViewModel
     
     lazy private var albumTitleLabel: UILabel = {
