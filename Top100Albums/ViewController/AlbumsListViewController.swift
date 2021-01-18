@@ -23,6 +23,7 @@ class AlbumsListViewController: UITableViewController {
         
         self.title = "Top 100 Albums"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = UIColor.white
     }
     
     override func viewDidLoad() {
@@ -32,7 +33,7 @@ class AlbumsListViewController: UITableViewController {
             let tableView = UITableView()
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.register(AlbumListTableViewCell.self, forCellReuseIdentifier: cellID)
-            tableView.backgroundColor = .black
+            tableView.separatorStyle = .none
             
             return tableView
         }()
