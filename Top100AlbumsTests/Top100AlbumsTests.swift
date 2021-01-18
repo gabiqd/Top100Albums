@@ -24,7 +24,7 @@ class Top100AlbumsTests: XCTestCase {
         XCTAssertNotNil(sampleData)
         let networkResponse = NetworkResponse(data: sampleData!)
         let decodedAlbum = networkResponse.decode(Album.self)
-        assert(decodedAlbum?.name == "Dangerous: The Double Album")
+        XCTAssertEqual(decodedAlbum?.name, "Dangerous: The Double Album")
     }
     
     func testAlbumViewModel() {
@@ -36,7 +36,14 @@ class Top100AlbumsTests: XCTestCase {
         XCTAssertNotNil(decodedAlbum)
         let albumViewModel = AlbumViewModel(album: decodedAlbum!, imageService: mockImageService)
         
-        XCTAssert(albumViewModel.title == "Dangerous: The Double Album")
+        XCTAssertEqual(albumViewModel.title, "Dangerous: The Double Album")
+    }
+    
+    func testURLGeneration() {
+        let endpoint = Endpoints.albums
+        let url = endpoint.url
+        
+        XCTAssertEqual(url?.absoluteString, "https://rss.itunes.apple.com/api/v1/us/apple-music/top-albums/all/100/explicit.json")
     }
     
     override func setUpWithError() throws {
