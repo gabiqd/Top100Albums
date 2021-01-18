@@ -14,7 +14,7 @@ class AlbumsListViewController: UITableViewController {
     
     lazy private(set) var viewModel: AlbumListViewModel = {
         let service = NetworkService()
-        let viewModel = AlbumListViewModel(networkService: service)
+        let viewModel = AlbumListViewModel(networkService: service, imageService: service)
         return viewModel
     }()
     
@@ -72,9 +72,21 @@ extension AlbumsListViewController {
             fatalError()
         }
         
-        let currentAlbum = viewModel.albumsViewModels[indexPath.row]
+        let currentAlbumViewModel = viewModel.albumsViewModels[indexPath.row]
         
-        cell.setAlbumInfo(title: currentAlbum.title, artistName: currentAlbum.artistName, albumURL: currentAlbum.thumbnailURL)
+        currentAlbumViewModel.onPosterUpdated = { (viewModel: AlbumViewModel) in
+            DispatchQueue.main.async {
+                if indexPath == viewModel.indexPath {
+                    cell.updateImage(viewModel.imageStorage)
+                } else {
+                    cell.updateImage(nil)
+                }
+            }
+        }
+        
+        currentAlbumViewModel.indexPath = indexPath
+        currentAlbumViewModel.fetchImage()
+        cell.setAlbumInfo(viewModel: currentAlbumViewModel)
         
         return cell
     }

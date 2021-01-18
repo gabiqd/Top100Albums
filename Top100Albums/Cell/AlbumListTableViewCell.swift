@@ -98,8 +98,13 @@ class AlbumListTableViewCell: UITableViewCell {
         
     }
     
-    func setAlbumInfo(title: String, artistName: String, albumURL: URL?) {
-        albumTitleLabel.text = title
-        artistLabel.text = artistName
+    func setAlbumInfo(viewModel: AlbumViewModel) {
+        albumTitleLabel.text = viewModel.title
+        artistLabel.text = viewModel.artistName
+        albumArtImageView.image = viewModel.imageStorage
+    }
+    
+    func updateImage(_ image: UIImage?) {
+        albumArtImageView.image = image
     }
 }

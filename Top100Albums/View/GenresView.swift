@@ -15,7 +15,7 @@ class GenresView: UIView {
     
     lazy private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -71,7 +71,7 @@ extension GenresView: UICollectionViewDataSource {
 extension GenresView: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let customWidth = collectionView.frame.height * 4
+        let customWidth = collectionView.frame.height * 3.5
         return CGSize(width: customWidth, height: collectionView.frame.height)
     }
     

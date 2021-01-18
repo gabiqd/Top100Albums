@@ -43,26 +43,10 @@ class AlbumDetailsViewController: UIViewController {
     lazy private var albumArtImageView: UIImageView = {
         let albumArtImageView = UIImageView()
         albumArtImageView.translatesAutoresizingMaskIntoConstraints = false
-        albumArtImageView.contentMode = .scaleAspectFill
+        albumArtImageView.contentMode = .scaleAspectFit
         albumArtImageView.clipsToBounds = true
         albumArtImageView.layer.masksToBounds = true
-        
-        if let albumURL = albumViewModel.thumbnailURL {
-            let imageService = NetworkService()
-            
-            imageService.fetchImage(imageURL: albumURL) { [weak self] (result) in
-                guard let sself = self else { return }
-
-                switch result {
-                case .success(let image):
-                    DispatchQueue.main.async {
-                        albumArtImageView.image = image
-                    }
-                case .failure(let error):
-                    print(error.message)
-                }
-            }
-        }
+        albumArtImageView.image = albumViewModel.imageStorage
         
         return albumArtImageView
     }()
@@ -189,7 +173,7 @@ class AlbumDetailsViewController: UIViewController {
     }
     
     @objc func clickButton() {
-        if let url = albumViewModel.artistURL {
+        if let url = albumViewModel.url {
            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
